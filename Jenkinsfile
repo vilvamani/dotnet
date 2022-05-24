@@ -14,7 +14,7 @@ pipeline {
             steps {
                 bat '''
                     dotnet restore
-                    dotnet publish aspnetapp/aspnetapp.csproj -c Release -o /app
+                    dotnet publish aspnetapp/MyWebApp.csproj -c Release -o /app
                     dotnet /app/MyWebApp.dll
                 '''
             }
