@@ -4,7 +4,19 @@ pipeline {
     stages {
         stage('Git Clone') {
             steps {
-                // One or more steps need to be included within the steps block.
+                cleanWs()
+
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/vilvamani/dotnet.git']]])
+            }
+        }
+
+        stage('Build & Run') {
+            steps {
+                bat '''
+                    dotnet restore
+                    dotnet publish aspnetapp/aspnetapp.csproj -c Release -o /app
+                    dotnet /app/MyWebApp.dll
+                '''
             }
         }
     }
